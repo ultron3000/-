@@ -18,7 +18,6 @@
             align-items: center; /* Vertically center the logos and heading */
             justify-content: center; /* Center the logos and heading horizontally */
             margin: 20px;
-            flex-direction: column; /* Stack items vertically (logo above the heading) */
         }
 
         /* Main heading styles */
@@ -30,10 +29,16 @@
         }
 
         /* Logo styles */
-        .logo img {
-            width: 120px; /* Adjust logo size as needed */
+        .logos img {
+            width: 40px; /* Smaller logo size */
             height: auto;
-            margin-bottom: 10px; /* Space between logo and heading */
+            margin: 0 10px;
+        }
+
+        /* Styling for the logo container */
+        .logos {
+            display: flex;
+            align-items: center; /* Vertically center logos */
         }
 
         h2 {
@@ -67,12 +72,12 @@
 </head>
 <body>
 
-<!-- Main Heading with Logo at the top -->
+<!-- Main Heading with Logos -->
 <div class="header-container">
-    <!-- Logo -->
-    <div class="logo">
-        <img src="https://media.tenor.com/19hYW4oXAz4AAAAe/kaaleeya-shivmudra.png" alt="Logo">
-    </div>
+    <!-- Left Side Logo (YouTube) -->
+    <a href="https://www.youtube.com/@chhatrapati1674" target="_blank" class="logos">
+        <img src="https://play-lh.googleusercontent.com/6am0i3walYwNLc08QOOhRJttQENNGkhlKajXSERf3JnPVRQczIyxw2w3DxeMRTOSdsY" alt="YouTube">
+    </a>
 
     <!-- Main Heading -->
     <h1>स्वराज्य</h1>
