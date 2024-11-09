@@ -9,13 +9,31 @@
         .category, .subcategory { margin: 10px 0; }
         .subcategory a { color: blue; cursor: pointer; text-decoration: underline; }
         h1 { text-align: center; color: #444; }
+        #videoPlayer { display: none; margin-top: 20px; }
+        #videoTitle { font-size: 20px; margin-bottom: 15px; }
+        .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>स्वराज्य</h1>
     <div id="categories"></div>
-    <div id="videoPlayer" style="display: none; margin-top: 20px;">
-        <video id="hlsVideo" width="640" height="360" controls></video>
+
+    <!-- Video Player Section -->
+    <div id="videoPlayer">
+        <div id="videoTitle"></div>
+        <div id="videoContainer"></div>
+        <a href="javascript:void(0);" onclick="goBack()" class="back-button">Go Back to Categories</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -23,20 +41,12 @@
         // Define categories and subcategories with HLS links
         const categories = {
             "चित्रपट": {
-                "फर्जंद": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AB%E0%A4%B0%E0%A4%9C%E0%A4%A6",
-                "फत्तेशिकस्त": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AB%E0%A4%A4%E0%A4%A4%E0%A4%B6%E0%A4%95%E0%A4%B8%E0%A4%A4",
-                "पावनखिंड": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AA%E0%A4%B5%E0%A4%A8%E0%A4%96%E0%A4%A1",
-                "शेर शिवराज": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B6%E0%A4%B0-%E0%A4%B6%E0%A4%B5%E0%A4%B0%E0%A4%9C",
-                "सुभेदार": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B8%E0%A4%AD%E0%A4%A6%E0%A4%B0",
-                "सरसेनापती हंबीरराव": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B8%E0%A4%B0%E0%A4%B8%E0%A4%A8%E0%A4%AA%E0%A4%A4-%E0%A4%B9%E0%A4%AC%E0%A4%B0%E0%A4%B0%E0%A4%B5",
-                "शिवप्रताप गरुडझेप": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B6%E0%A4%B5%E0%A4%AA%E0%A4%B0%E0%A4%A4%E0%A4%AA-%E0%A4%97%E0%A4%B0%E0%A4%A1%E0%A4%9D%E0%A4%AA",
-                "हिरकणी": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B9%E0%A4%B0%E0%A4%95%E0%A4%A3"
+                "फर्जंद": "https://drive.google.com/file/d/your_file_id/preview",
+                "फत्तेशिकस्त": "https://drive.google.com/file/d/your_file_id/preview"
             },
             "मराठी मालिका": {
-                "स्वराज्यजननी जिजामाता": "https://www.youtube.com/watch?v=Su-ZniKjUqA&list=PLoYBnLBgd5ab21JrIpsunf4aBY-i2YnUv&index=569",
-                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0&list=PLPT_LBXZkCXDQGqj54Bp6xkA-tqTtWggS&index=2",
-                "स्वराज्यरक्षक संभाजी": "https://www.youtube.com/watch?v=xPV20XdWjrQ&list=PLMHrU-jxz0lES9o1kYK9H7f66uUcsx89m&index=4",
-                "स्वराज्य सौदामिनी ताराराणी": "https://www.youtube.com/watch?v=zLB--Mpu-Po&list=PLoYBnLBgd5ablDA2w5jTd9Da0N4_OryBq&index=213"
+                "स्वराज्यजननी जिजामाता": "https://www.youtube.com/watch?v=Su-ZniKjUqA",
+                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0"
             }
         };
 
@@ -51,21 +61,43 @@
                 for (let subcategory in categories[category]) {
                     const subcategoryDiv = document.createElement("div");
                     subcategoryDiv.className = "subcategory";
-                    subcategoryDiv.innerHTML = `<a onclick="playVideo('${categories[category][subcategory]}')">${subcategory}</a>`;
+                    subcategoryDiv.innerHTML = `<a href="javascript:void(0);" onclick="playVideo('${subcategory}', '${categories[category][subcategory]}')">${subcategory}</a>`;
                     categoryDiv.appendChild(subcategoryDiv);
                 }
                 categoriesDiv.appendChild(categoryDiv);
             }
         }
 
-        // Function to play video using HLS.js
-        function playVideo(url) {
+        // Function to play video using either HLS or iframe for Google Drive
+        function playVideo(title, url) {
             const videoPlayerDiv = document.getElementById("videoPlayer");
-            const video = document.getElementById("hlsVideo");
+            const videoContainer = document.getElementById("videoContainer");
+            const videoTitle = document.getElementById("videoTitle");
 
-            if (url.includes("youtube.com")) {
+            // Set video title
+            videoTitle.textContent = `Now Playing: ${title}`;
+            
+            // Clear previous content
+            videoContainer.innerHTML = '';
+
+            // Handle Google Drive video
+            if (url.includes("drive.google.com")) {
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.width = "640";
+                iframe.height = "360";
+                iframe.allow = "autoplay";
+                iframe.frameBorder = "0";
+                videoContainer.appendChild(iframe);
+            } else if (url.includes("youtube.com")) {
                 window.open(url, "_blank");
             } else if (Hls.isSupported()) {
+                const video = document.createElement('video');
+                video.width = 640;
+                video.height = 360;
+                video.controls = true;
+                videoContainer.appendChild(video);
+
                 const hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(video);
@@ -73,14 +105,26 @@
                     video.play();
                 });
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                const video = document.createElement('video');
                 video.src = url;
+                video.controls = true;
+                video.width = 640;
+                video.height = 360;
+                videoContainer.appendChild(video);
                 video.play();
             }
 
+            // Show the video player
             videoPlayerDiv.style.display = "block";
         }
 
-        // Initialize
+        // Function to go back to categories view
+        function goBack() {
+            const videoPlayerDiv = document.getElementById("videoPlayer");
+            videoPlayerDiv.style.display = "none";
+        }
+
+        // Initialize categories
         displayCategories();
     </script>
 </body>
