@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>स्वराज्य</title>
     <style>
-        body { font-family: Arial, sans-serif; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: orange; /* Set the background color to orange */
+        }
         .category, .subcategory { margin: 10px 0; }
         .subcategory a { color: blue; cursor: pointer; text-decoration: underline; }
         h1 { text-align: center; color: #444; }
@@ -38,15 +41,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        // Define categories and subcategories with HLS links
+        // Define categories and subcategories with HLS or other video links
         const categories = {
             "चित्रपट": {
                 "फर्जंद": "https://drive.google.com/file/d/your_file_id/preview",
-                "फत्तेशिकस्त": "https://drive.google.com/file/d/your_file_id/preview"
+                "फत्तेशिकस्त": "https://drive.google.com/file/d/your_file_id/preview",
+                "पावनखिंड": "https://drive.google.com/file/d/your_file_id/preview",
+                "शेर शिवराज": "https://drive.google.com/file/d/your_file_id/preview",
+                "सुभेदार": "https://drive.google.com/file/d/your_file_id/preview",
+                "सरसेनापती हंबीरराव": "https://drive.google.com/file/d/your_file_id/preview",
+                "शिवप्रताप गरुडझेप": "https://drive.google.com/file/d/your_file_id/preview",
+                "हिरकणी": "https://drive.google.com/file/d/your_file_id/preview"
             },
             "मराठी मालिका": {
                 "स्वराज्यजननी जिजामाता": "https://www.youtube.com/watch?v=Su-ZniKjUqA",
-                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0"
+                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0",
+                "स्वराज्यरक्षक संभाजी": "https://www.youtube.com/watch?v=xPV20XdWjrQ",
+                "स्वराज्य सौदामिनी ताराराणी": "https://www.youtube.com/watch?v=zLB--Mpu-Po"
             }
         };
 
@@ -68,7 +79,7 @@
             }
         }
 
-        // Function to play video using either HLS or iframe for Google Drive
+        // Function to play video using either HLS or iframe for Google Drive or YouTube
         function playVideo(title, url) {
             const videoPlayerDiv = document.getElementById("videoPlayer");
             const videoContainer = document.getElementById("videoContainer");
@@ -80,7 +91,7 @@
             // Clear previous content
             videoContainer.innerHTML = '';
 
-            // Handle Google Drive video
+            // Handle Google Drive video (embedded via iframe)
             if (url.includes("drive.google.com")) {
                 const iframe = document.createElement('iframe');
                 iframe.src = url;
@@ -89,9 +100,13 @@
                 iframe.allow = "autoplay";
                 iframe.frameBorder = "0";
                 videoContainer.appendChild(iframe);
-            } else if (url.includes("youtube.com")) {
+            }
+            // Handle YouTube video (opens in new tab)
+            else if (url.includes("youtube.com")) {
                 window.open(url, "_blank");
-            } else if (Hls.isSupported()) {
+            }
+            // Handle HLS (if the video is a streaming URL)
+            else if (Hls.isSupported()) {
                 const video = document.createElement('video');
                 video.width = 640;
                 video.height = 360;
@@ -104,7 +119,9 @@
                 hls.on(Hls.Events.MANIFEST_PARSED, function () {
                     video.play();
                 });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            }
+            // Handle default video playback if no HLS.js or other methods
+            else if (document.createElement('video').canPlayType('application/vnd.apple.mpegurl')) {
                 const video = document.createElement('video');
                 video.src = url;
                 video.controls = true;
