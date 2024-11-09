@@ -5,144 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>स्वराज्य</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: orange; /* Set the background color to orange */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: orange; /* Background color as per your requirement */
+            text-align: center;
+            margin: 20px;
         }
-        .category, .subcategory { margin: 10px 0; }
-        .subcategory a { color: blue; cursor: pointer; text-decoration: underline; }
-        h1 { text-align: center; color: #444; }
-        #videoPlayer { display: none; margin-top: 20px; }
-        #videoTitle { font-size: 20px; margin-bottom: 15px; }
-        .back-button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
+        a {
+            display: block;
+            margin: 10px 0;
+            font-size: 20px;
             text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            margin-top: 20px;
+            color: blue;
         }
-        .back-button:hover {
-            background-color: #0056b3;
+        a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #444;
         }
     </style>
 </head>
 <body>
-    <h1>स्वराज्य</h1>
-    <div id="categories"></div>
 
-    <!-- Video Player Section -->
-    <div id="videoPlayer">
-        <div id="videoTitle"></div>
-        <div id="videoContainer"></div>
-        <a href="javascript:void(0);" onclick="goBack()" class="back-button">Go Back to Categories</a>
-    </div>
+<h1>स्वराज्य</h1>
 
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        // Define categories and subcategories with HLS or other video links
-        const categories = {
-            "चित्रपट": {
-                "फर्जंद": "https://drive.google.com/file/d/your_file_id/preview",
-                "फत्तेशिकस्त": "https://drive.google.com/file/d/your_file_id/preview",
-                "पावनखिंड": "https://drive.google.com/file/d/your_file_id/preview",
-                "शेर शिवराज": "https://drive.google.com/file/d/your_file_id/preview",
-                "सुभेदार": "https://drive.google.com/file/d/your_file_id/preview",
-                "सरसेनापती हंबीरराव": "https://drive.google.com/file/d/your_file_id/preview",
-                "शिवप्रताप गरुडझेप": "https://drive.google.com/file/d/your_file_id/preview",
-                "हिरकणी": "https://drive.google.com/file/d/your_file_id/preview"
-            },
-            "मराठी मालिका": {
-                "स्वराज्यजननी जिजामाता": "https://www.youtube.com/watch?v=Su-ZniKjUqA",
-                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0",
-                "स्वराज्यरक्षक संभाजी": "https://www.youtube.com/watch?v=xPV20XdWjrQ",
-                "स्वराज्य सौदामिनी ताराराणी": "https://www.youtube.com/watch?v=zLB--Mpu-Po"
-            }
-        };
+<!-- Category: चित्रपट (Movies) -->
+<div class="category">
+    <h2>चित्रपट</h2>
+    <a href="movie1.html">फर्जंद</a>
+    <a href="movie2.html">फत्तेशिकस्त</a>
+    <a href="movie3.html">पावनखिंड</a>
+    <a href="movie4.html">शेर शिवराज</a>
+    <a href="movie5.html">सुभेदार</a>
+    <a href="movie6.html">सरसेनापती हंबीरराव</a>
+    <a href="movie7.html">शिवप्रताप गरुडझेप</a>
+    <a href="movie8.html">हिरकणी</a>
+</div>
 
-        // Function to display categories and subcategories
-        function displayCategories() {
-            const categoriesDiv = document.getElementById("categories");
-            for (let category in categories) {
-                const categoryDiv = document.createElement("div");
-                categoryDiv.className = "category";
-                categoryDiv.innerHTML = `<h2>${category}</h2>`;
-                
-                for (let subcategory in categories[category]) {
-                    const subcategoryDiv = document.createElement("div");
-                    subcategoryDiv.className = "subcategory";
-                    subcategoryDiv.innerHTML = `<a href="javascript:void(0);" onclick="playVideo('${subcategory}', '${categories[category][subcategory]}')">${subcategory}</a>`;
-                    categoryDiv.appendChild(subcategoryDiv);
-                }
-                categoriesDiv.appendChild(categoryDiv);
-            }
-        }
+<!-- Category: मराठी मालिका (TV Shows) -->
+<div class="category">
+    <h2>मराठी मालिका</h2>
+    <a href="show1.html">स्वराज्यजननी जिजामाता</a>
+    <a href="show2.html">राजा शिवछत्रपती</a>
+    <a href="show3.html">स्वराज्यरक्षक संभाजी</a>
+    <a href="show4.html">स्वराज्य सौदामिनी ताराराणी</a>
+</div>
 
-        // Function to play video using either HLS or iframe for Google Drive or YouTube
-        function playVideo(title, url) {
-            const videoPlayerDiv = document.getElementById("videoPlayer");
-            const videoContainer = document.getElementById("videoContainer");
-            const videoTitle = document.getElementById("videoTitle");
-
-            // Set video title
-            videoTitle.textContent = `Now Playing: ${title}`;
-            
-            // Clear previous content
-            videoContainer.innerHTML = '';
-
-            // Handle Google Drive video (embedded via iframe)
-            if (url.includes("drive.google.com")) {
-                const iframe = document.createElement('iframe');
-                iframe.src = url;
-                iframe.width = "640";
-                iframe.height = "360";
-                iframe.allow = "autoplay";
-                iframe.frameBorder = "0";
-                videoContainer.appendChild(iframe);
-            }
-            // Handle YouTube video (opens in new tab)
-            else if (url.includes("youtube.com")) {
-                window.open(url, "_blank");
-            }
-            // Handle HLS (if the video is a streaming URL)
-            else if (Hls.isSupported()) {
-                const video = document.createElement('video');
-                video.width = 640;
-                video.height = 360;
-                video.controls = true;
-                videoContainer.appendChild(video);
-
-                const hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                    video.play();
-                });
-            }
-            // Handle default video playback if no HLS.js or other methods
-            else if (document.createElement('video').canPlayType('application/vnd.apple.mpegurl')) {
-                const video = document.createElement('video');
-                video.src = url;
-                video.controls = true;
-                video.width = 640;
-                video.height = 360;
-                videoContainer.appendChild(video);
-                video.play();
-            }
-
-            // Show the video player
-            videoPlayerDiv.style.display = "block";
-        }
-
-        // Function to go back to categories view
-        function goBack() {
-            const videoPlayerDiv = document.getElementById("videoPlayer");
-            videoPlayerDiv.style.display = "none";
-        }
-
-        // Initialize categories
-        displayCategories();
-    </script>
 </body>
 </html>
