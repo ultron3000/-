@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+
         /* Main heading container with flexbox for logo positioning */
         .header-container {
             display: flex;
@@ -44,11 +45,20 @@
             font-size: 2em;
             color: #333;
             margin-top: 30px;
+            text-align: center; /* Center the category headings */
+        }
+
+        /* Category Links Styling */
+        .category-links {
+            display: flex;
+            justify-content: center; /* Align links in the center */
+            flex-wrap: wrap; /* Allow links to wrap in case of overflow */
+            margin: 20px 0;
         }
 
         a {
-            display: block;
-            margin: 10px 0;
+            display: inline-block;
+            margin: 10px 20px;
             font-size: 20px;
             text-decoration: none;
             color: blue;
@@ -57,6 +67,7 @@
         a:hover {
             text-decoration: underline;
         }
+
     </style>
 </head>
 <body>
@@ -79,20 +90,24 @@
 
 <!-- Main Categories -->
 <h2>चित्रपट (Movies)</h2>
-<a href="movie1.html">फर्जंद</a>
-<a href="movie2.html">फत्तेशिकस्त</a>
-<a href="movie3.html">पावनखिंड</a>
-<a href="movie4.html">शेर शिवराज</a>
-<a href="movie5.html">सुभेदार</a>
-<a href="movie6.html">सरसेनापती हंबीरराव</a>
-<a href="movie7.html">शिवप्रताप गरुडझेप</a>
-<a href="movie8.html">हिरकणी</a>
+<div class="category-links">
+    <a href="movie1.html">फर्जंद</a>
+    <a href="movie2.html">फत्तेशिकस्त</a>
+    <a href="movie3.html">पावनखिंड</a>
+    <a href="movie4.html">शेर शिवराज</a>
+    <a href="movie5.html">सुभेदार</a>
+    <a href="movie6.html">सरसेनापती हंबीरराव</a>
+    <a href="movie7.html">शिवप्रताप गरुडझेप</a>
+    <a href="movie8.html">हिरकणी</a>
+</div>
 
 <h2>मालिका (Shows)</h2>
-<a href="show1.html">स्वराज्यजननी जिजामाता</a>
-<a href="show2.html">राजा शिवछत्रपती</a>
-<a href="show3.html">स्वराज्यरक्षक संभाजी</a>
-<a href="show4.html">स्वराज्य सौदामिनी ताराराणी</a>
+<div class="category-links">
+    <a href="show1.html">स्वराज्यजननी जिजामाता</a>
+    <a href="show2.html">राजा शिवछत्रपती</a>
+    <a href="show3.html">स्वराज्यरक्षक संभाजी</a>
+    <a href="show4.html">स्वराज्य सौदामिनी ताराराणी</a>
+</div>
 
 </body>
 </html>
