@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्वराज्य</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .category, .subcategory { margin: 10px 0; }
+        .subcategory a { color: blue; cursor: pointer; text-decoration: underline; }
+        h1 { text-align: center; color: #444; }
+    </style>
+</head>
+<body>
+    <h1>स्वराज्य</h1>
+    <div id="categories"></div>
+    <div id="videoPlayer" style="display: none; margin-top: 20px;">
+        <video id="hlsVideo" width="640" height="360" controls></video>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        // Define categories and subcategories with HLS links
+        const categories = {
+            "चित्रपट": {
+                "फर्जंद": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AB%E0%A4%B0%E0%A4%9C%E0%A4%A6",
+                "फत्तेशिकस्त": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AB%E0%A4%A4%E0%A4%A4%E0%A4%B6%E0%A4%95%E0%A4%B8%E0%A4%A4",
+                "पावनखिंड": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%AA%E0%A4%B5%E0%A4%A8%E0%A4%96%E0%A4%A1",
+                "शेर शिवराज": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B6%E0%A4%B0-%E0%A4%B6%E0%A4%B5%E0%A4%B0%E0%A4%9C",
+                "सुभेदार": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B8%E0%A4%AD%E0%A4%A6%E0%A4%B0",
+                "सरसेनापती हंबीरराव": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B8%E0%A4%B0%E0%A4%B8%E0%A4%A8%E0%A4%AA%E0%A4%A4-%E0%A4%B9%E0%A4%AC%E0%A4%B0%E0%A4%B0%E0%A4%B5",
+                "शिवप्रताप गरुडझेप": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B6%E0%A4%B5%E0%A4%AA%E0%A4%B0%E0%A4%A4%E0%A4%AA-%E0%A4%97%E0%A4%B0%E0%A4%A1%E0%A4%9D%E0%A4%AA",
+                "हिरकणी": "https://sites.google.com/view/swarajya/%E0%A4%9A%E0%A4%A4%E0%A4%B0%E0%A4%AA%E0%A4%9F/%E0%A4%B9%E0%A4%B0%E0%A4%95%E0%A4%A3"
+            },
+            "मराठी मालिका": {
+                "स्वराज्यजननी जिजामाता": "https://www.youtube.com/watch?v=Su-ZniKjUqA&list=PLoYBnLBgd5ab21JrIpsunf4aBY-i2YnUv&index=569",
+                "राजा शिवछत्रपती": "https://www.youtube.com/watch?v=eMBgubZWYh0&list=PLPT_LBXZkCXDQGqj54Bp6xkA-tqTtWggS&index=2",
+                "स्वराज्यरक्षक संभाजी": "https://www.youtube.com/watch?v=xPV20XdWjrQ&list=PLMHrU-jxz0lES9o1kYK9H7f66uUcsx89m&index=4",
+                "स्वराज्य सौदामिनी ताराराणी": "https://www.youtube.com/watch?v=zLB--Mpu-Po&list=PLoYBnLBgd5ablDA2w5jTd9Da0N4_OryBq&index=213"
+            }
+        };
+
+        // Function to display categories and subcategories
+        function displayCategories() {
+            const categoriesDiv = document.getElementById("categories");
+            for (let category in categories) {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.className = "category";
+                categoryDiv.innerHTML = `<h2>${category}</h2>`;
+                
+                for (let subcategory in categories[category]) {
+                    const subcategoryDiv = document.createElement("div");
+                    subcategoryDiv.className = "subcategory";
+                    subcategoryDiv.innerHTML = `<a onclick="playVideo('${categories[category][subcategory]}')">${subcategory}</a>`;
+                    categoryDiv.appendChild(subcategoryDiv);
+                }
+                categoriesDiv.appendChild(categoryDiv);
+            }
+        }
+
+        // Function to play video using HLS.js
+        function playVideo(url) {
+            const videoPlayerDiv = document.getElementById("videoPlayer");
+            const video = document.getElementById("hlsVideo");
+
+            if (url.includes("youtube.com")) {
+                window.open(url, "_blank");
+            } else if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
+            }
+
+            videoPlayerDiv.style.display = "block";
+        }
+
+        // Initialize
+        displayCategories();
+    </script>
+</body>
+</html>
