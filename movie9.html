@@ -8,37 +8,83 @@
         body {
             font-family: Arial, sans-serif;
             background-color: orange;
+            margin: 0;
+            padding: 0;
             text-align: center;
-            margin: 20px;
         }
-        iframe {
+
+        h1 {
+            font-size: 2em;
+            color: #444;
             margin-top: 20px;
-            width: 640px;
-            height: 360px;
         }
-        a {
+
+        /* Video player container */
+        .video-container {
+            margin: 20px auto;
+            max-width: 100%;
+            width: 800px; /* You can adjust this size */
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: block;
+            font-size: 18px;
             text-decoration: none;
             color: blue;
         }
-        a:hover {
+
+        .back-link:hover {
             text-decoration: underline;
-        }
-        h1 {
-            color: #444;
         }
     </style>
 </head>
 <body>
 
 <h1>शिवरायांचा छावा</h1>
-<p>Enjoy watching the movie "शिवरायांचा छावा" below:</p>
 
-<!-- Embed Google Drive Video for शिवरायांचा छावा -->
-<iframe src="https://q7k6ad0empwu.cdn-jupiter.com:443/hls2/01/04153/9y5ywieifd2k_,n,h,.urlset/index-f2-v1-a1.m3u8?t=62_hH9MFQFjUQ47saJfGNdfCjv3VseV7ZpvLVo0eoCQ&s=1731439258&e=129600&f=20768357&srv=aobx2iskdwtw&i=0.4&sp=500&p1=aobx2iskdwtw&p2=aobx2iskdwtw&asn=24554" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+<!-- Video Player -->
+<div class="video-container">
+    <video id="video" controls>
+        <source src="" type="application/x-mpegURL">
+        Your browser does not support HLS playback.
+    </video>
+</div>
 
-<!-- Back Button -->
-<br>
-<a href="index.html">Back to Main Page</a>
+<!-- Back Link -->
+<a href="index.html" class="back-link">Back to Movies</a>
+
+<!-- Include hls.js -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+    // The HLS URL for the movie "शिवरायांचा छावा"
+    var videoUrl = "https://q7k6ad0empwu.cdn-jupiter.com:443/hls2/01/04153/9y5ywieifd2k_,n,h,.urlset/index-f2-v1-a1.m3u8?t=62_hH9MFQFjUQ47saJfGNdfCjv3VseV7ZpvLVo0eoCQ&s=1731439258&e=129600&f=20768357&srv=aobx2iskdwtw&i=0.4&sp=500&p1=aobx2iskdwtw&p2=aobx2iskdwtw&asn=24554";
+
+    // Check if HLS is supported by the browser
+    if (Hls.isSupported()) {
+        var video = document.getElementById('video');
+        var hls = new Hls();
+        
+        // Bind the HLS stream to the video element
+        hls.loadSource(videoUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // For browsers that support HLS natively (like Safari)
+        video.src = videoUrl;
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+    }
+</script>
 
 </body>
 </html>
