@@ -28,12 +28,6 @@
             margin: 0 auto;
         }
 
-        iframe {
-            width: 100%;
-            height: 800px;  /* Adjust height as necessary */
-            border: none;
-        }
-
         footer {
             text-align: center;
             margin-top: 50px;
@@ -54,12 +48,13 @@
 <body>
     <div class="container">
         <h1>मावळा</h1>
-        <p>This page embeds the Google Site for the "मावळा" section of Swarajya.</p>
+        <p>This page redirects you to the Google Site for the "मावळा" section of Swarajya.</p>
 
-        <!-- Embedding your Google Site in an iframe -->
-        <iframe src="https://sites.google.com/view/swarajya/%E0%A4%AE%E0%A4%B5%E0%A4%B3" title="Swarajya - मावळा"></iframe>
+        <!-- Link to Google Site -->
+        <p>You will be redirected to the Google Site. If not, <a href="https://sites.google.com/view/swarajya/%E0%A4%AE%E0%A4%B5%E0%A4%B3" target="_blank">click here to visit the site</a>.</p>
 
-        <p>Return to the <a href="index.html"><strong>Home Page</strong></a></p>
+        <!-- Optional auto-redirect after 3 seconds -->
+        <meta http-equiv="refresh" content="3; url=https://sites.google.com/view/swarajya/%E0%A4%AE%E0%A4%B5%E0%A4%B3" />
     </div>
 
     <footer>
