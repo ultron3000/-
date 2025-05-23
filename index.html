@@ -1,199 +1,354 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="mr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>स्वराज्य</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
     body {
-      font-family: Arial, sans-serif;
-      background-color: orange;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      min-height: 100vh;
       margin: 0;
       padding: 0;
+      color: #1f2937;
     }
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 20px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      font-size: 3.5em;
-      color: #444;
-      margin: 0;
-      text-align: center;
-      flex: 1;
-    }
-    .logos img {
-      width: 40px;
-      height: auto;
-      margin: 0 10px;
-    }
-    .logos {
-      display: flex;
-      align-items: center;
-    }
-    h2 {
-      font-size: 2.5em;
-      color: #333;
-      margin-top: 30px;
-      text-align: center;
-      font-weight: bold;
-    }
-    .category-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 10px;
-    }
+    
     .movie-card {
-      background-color: #fff;
-      max-width: 220px;
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      transform: translateY(0);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .movie-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .movie-card img {
       transition: transform 0.3s ease;
     }
-    .movie-card:hover {
-      transform: scale(1.05);
+    
+    .movie-card:hover img {
+      transform: scale(1.03);
     }
-    .movie-card img {
-      width: 100%;
-      border-radius: 10px;
+    
+    .header-container {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.9);
     }
-    .movie-card a {
-      display: block;
-      text-decoration: none;
-      color: #333;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 10px;
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
     }
-    .top-logo {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 4px;
+      bottom: -8px;
+      left: 20%;
+      background: #ea580c;
+      border-radius: 2px;
     }
+    
     .top-logo img {
-      width: 120px;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      transform: scale(1.2);
+    }
+    
+    .footer {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
     }
   </style>
 </head>
-<body>
-  <div class="top-logo">
-    <img src="https://media.tenor.com/19hYW4oXAz4AAAAe/kaaleeya-shivmudra.png" alt="Logo">
-  </div>
-  <div class="header-container">
-    <a class="logos" href="https://www.youtube.com/@chhatrapati1674" target="_blank">
-      <img src="https://play-lh.googleusercontent.com/6am0i3walYwNLc08QOOhRJttQENNGkhlKajXSERf3JnPVRQczIyxw2w3DxeMRTOSdsY" alt="YouTube">
-    </a>
-    <h1>स्वराज्य</h1>
-    <a class="logos" href="https://sites.google.com/view/swarajya?usp=sharing" target="_blank">
-      <img src="https://w7.pngwing.com/pngs/357/433/png-transparent-computer-icons-website-web-design-logo-grey-thumbnail.png" alt="Website">
-    </a>
+<body class="pb-16">
+  <!-- Top Logo -->
+  <div class="top-logo flex justify-center mt-8">
+    <img src="https://media.tenor.com/19hYW4oXAz4AAAAe/kaaleeya-shivmudra.png" alt="Logo" class="w-32 h-32 object-contain">
   </div>
 
-  <h2>चित्रपट (Movies)</h2>
-  <div class="category-links">
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/14PPQfQJfspcFMmYCPfBwTcD6WGuxAt0x/preview">
-        <img src="https://static.digit.in/OTT/v2/images/farzand-70297jpg" alt="फर्जंद" />
-        फर्जंद
+  <!-- Header -->
+  <div class="header-container mx-4 md:mx-16 lg:mx-32 xl:mx-64 mt-6 rounded-xl p-6">
+    <div class="flex flex-col md:flex-row items-center justify-between">
+      <a href="https://www.youtube.com/@chhatrapati1674" target="_blank" class="social-icon mb-4 md:mb-0">
+        <div class="bg-red-600 p-3 rounded-full">
+          <i class="fab fa-youtube text-white text-2xl"></i>
+        </div>
       </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1fIxfr-OWT7Hd5czMlTZ5oqswX_IUFKxf/preview">
-        <img src="https://upload.wikimedia.org/wikipedia/en/8/81/Fatteshikast.jpg" alt="फत्तेशिकस्त" />
-        फत्तेशिकस्त
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1cTEVFdmlU17pFMVILTBh92OLdyMEJ-dD/preview">
-        <img src="https://m.media-amazon.com/images/M/MV5BOTMyYTEyYWMtNjI2Ny00MGZkLThjZTUtY2VhZTc5OTc5NmY0XkEyXkFqcGc@._V1_.jpg" alt="पावनखिंड" />
-        पावनखिंड
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1BVpWybbG4QgQd8UYBFEPyVmdN3-Rs05S/preview">
-        <img src="https://c.saavncdn.com/180/Sher-Shivraj-Marathi-2022-20220422095918-500x500.jpg" alt="शेर शिवराज" />
-        शेर शिवराज
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1VOyEOjnTEtn8jcZs_XTwBDwGtCgFVLFx/preview">
-        <img src="https://media-cache.cinematerial.com/p/500x/cu5tefq3/subhedar-indian-movie-poster.jpg?v=1707902225" alt="सुभेदार" />
-        सुभेदार
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1-Tt6UuGDgkev-bTQ-V2xTzq4pytP_Bq5/preview">
-        <img src="https://marathimovieworld.com/images/sarsenapati-hambirrao-movie-posters-pravin-tarde.jpg" alt="सरसेनापती हंबीरराव" />
-        सरसेनापती हंबीरराव
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1X-z1n7TaLfeHUS54URe6cYmR9uFb6KT1/preview">
-        <img src="https://www.loksatta.com/wp-content/uploads/2022/09/Shivpratap-Garudjhep-Cast-2.jpg?w=350" />
-        शिवप्रताप गरुडझेप
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1kcjXftfjQzzfmBhKXXNv0ZqeN9CB8zsR/preview">
-        <img src="https://m.media-amazon.com/images/M/MV5BMDRlZGNlY2MtMzZmZi00Yjg1LTliNDgtZjZhZmJmZGQxOGM5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="हिरकणी" />
-        हिरकणी
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1qnuEq-66vaxVPzfsHAL2E346kQVjvB45/preview">
-        <img src="https://m.media-amazon.com/images/M/MV5BMjhkMTI5MTktMjc0MC00N2I3LWFlMGMtOTY0YmNmYzJlNTM3XkEyXkFqcGc@._V1_.jpg" alt="शिवरायांचा छावा" />
-        शिवरायांचा छावा
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1y8foBArRlApJl7mzHGbWdWa0izC-GMP7/preview">
-        <img src="https://m.media-amazon.com/images/M/MV5BOTA3ZjJjYjMtNWY1Ni00NWUzLTkwZTEtZTViMGVhYzMwNDE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="धर्मरक्षक महावीर छत्रपती संभाजी महाराज" />
-        धर्मरक्षक महावीर छत्रपती संभाजी महाराज
-      </a>
-    </div>
-    <div class="movie-card">
-      <a href="player.html?movie=https://drive.google.com/file/d/1mNG50WMvV9hpyWdMDfm7HgPeEvm-CMNT/preview">
-        <img src="https://images.tv9hindi.com/wp-content/uploads/2024/08/chhaava-poster.jpg" alt="छावा" />
-        छावा
+      
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-800 text-center mx-4">
+        <span class="text-orange-600">स्व</span>राज्य
+      </h1>
+      
+      <a href="https://sites.google.com/view/swarajya?usp=sharing" target="_blank" class="social-icon mt-4 md:mt-0">
+        <div class="bg-blue-600 p-3 rounded-full">
+          <i class="fas fa-globe text-white text-2xl"></i>
+        </div>
       </a>
     </div>
   </div>
 
-  <h2>मालिका (Shows)</h2>
-<div class="category-links">
-  <div class="movie-card">
-    <a href="https://www.youtube.com/watch?v=xPV20XdWjrQ&amp;list=PLMHrU-jxz0lES9o1kYK9H7f66uUcsx89m&amp;index=4" target="_blank">
-      <img src="https://s.itl.cat/pngfile/s/207-2071007_swarajya-rakshak-sambhaji-tv-show-swarajya-rakshak-sambhaji.jpg"/>
-      स्वराज्यरक्षक संभाजी
-    </a>
+  <!-- Movies Section -->
+  <div class="container mx-auto px-4 mt-12">
+    <h2 class="section-title text-3xl font-bold text-center text-white mb-8">
+      चित्रपट (Movies)
+    </h2>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+      <!-- Movie Cards -->
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/14PPQfQJfspcFMmYCPfBwTcD6WGuxAt0x/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://static.digit.in/OTT/v2/images/farzand-70297jpg" alt="फर्जंद" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">फर्जंद</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1fIxfr-OWT7Hd5czMlTZ5oqswX_IUFKxf/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/81/Fatteshikast.jpg" alt="फत्तेशिकस्त" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">फत्तेशिकस्त</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1cTEVFdmlU17pFMVILTBh92OLdyMEJ-dD/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://m.media-amazon.com/images/M/MV5BOTMyYTEyYWMtNjI2Ny00MGZkLThjZTUtY2VhZTc5OTc5NmY0XkEyXkFqcGc@._V1_.jpg" alt="पावनखिंड" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">पावनखिंड</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1BVpWybbG4QgQd8UYBFEPyVmdN3-Rs05S/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://c.saavncdn.com/180/Sher-Shivraj-Marathi-2022-20220422095918-500x500.jpg" alt="शेर शिवराज" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">शेर शिवराज</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1VOyEOjnTEtn8jcZs_XTwBDwGtCgFVLFx/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://media-cache.cinematerial.com/p/500x/cu5tefq3/subhedar-indian-movie-poster.jpg?v=1707902225" alt="सुभेदार" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">सुभेदार</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1-Tt6UuGDgkev-bTQ-V2xTzq4pytP_Bq5/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://marathimovieworld.com/images/sarsenapati-hambirrao-movie-posters-pravin-tarde.jpg" alt="सरसेनापती हंबीरराव" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">सरसेनापती हंबीरराव</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1X-z1n7TaLfeHUS54URe6cYmR9uFb6KT1/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://www.loksatta.com/wp-content/uploads/2022/09/Shivpratap-Garudjhep-Cast-2.jpg?w=350" alt="शिवप्रताप गरुडझेप" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">शिवप्रताप गरुडझेप</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1kcjXftfjQzzfmBhKXXNv0ZqeN9CB8zsR/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://m.media-amazon.com/images/M/MV5BMDRlZGNlY2MtMzZmZi00Yjg1LTliNDgtZjZhZmJmZGQxOGM5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="हिरकणी" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">हिरकणी</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1qnuEq-66vaxVPzfsHAL2E346kQVjvB45/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://m.media-amazon.com/images/M/MV5BMjhkMTI5MTktMjc0MC00N2I3LWFlMGMtOTY0YmNmYzJlNTM3XkEyXkFqcGc@._V1_.jpg" alt="शिवरायांचा छावा" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">शिवरायांचा छावा</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1y8foBArRlApJl7mzHGbWdWa0izC-GMP7/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://m.media-amazon.com/images/M/MV5BOTA3ZjJjYjMtNWY1Ni00NWUzLTkwZTEtZTViMGVhYzMwNDE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="धर्मरक्षक महावीर छत्रपती संभाजी महाराज" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">धर्मरक्षक महावीर छत्रपती संभाजी महाराज</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="player.html?movie=https://drive.google.com/file/d/1mNG50WMvV9hpyWdMDfm7HgPeEvm-CMNT/preview" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://images.tv9hindi.com/wp-content/uploads/2024/08/chhaava-poster.jpg" alt="छावा" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">छावा</h3>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="movie-card">
-    <a href="https://www.youtube.com/watch?v=eMBgubZWYh0&amp;list=PLPT_LBXZkCXDQGqj54Bp6xkA-tqTtWggS&amp;index=2" target="_blank">
-      <img src="https://m.media-amazon.com/images/M/MV5BM2Q4OGRkZmQtOGNhNy00MzlkLThjMTYtMzVhZTYxNTU4ZGY3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"/>
-      राजा शिवछत्रपती
-    </a>
-  </div>
-  <div class="movie-card">
-    <a href="https://www.youtube.com/watch?v=zLB--Mpu-Po&amp;list=PLoYBnLBgd5ablDA2w5jTd9Da0N4_OryBq&amp;index=213" target="_blank">
-      <img src="https://img.airtel.tv/unsafe/fit-in/1600x0/filters:format(webp)/https://xstreamcp-assets-msp.streamready.in/assets/SONYLIV_VOD/SERIES/6485cef982488153bfe4ba89/images/Tararani_12NOV_Landscape_Thumb.jpg?o=production"/>
-      स्वराज्य सौदामिनी ताराराणी
-    </a>
-  </div>
-  <div class="movie-card">
-    <a href="https://www.youtube.com/watch?v=Su-ZniKjUqA&amp;list=PLoYBnLBgd5ab21JrIpsunf4aBY-i2YnUv&amp;index=569" target="_blank">
-      <img src="https://pbs.twimg.com/profile_images/1309840125161922560/dK_cu5Xt_400x400.jpg"/>
-      स्वराज्यजननी जिजामाता
-    </a>
-  </div>
-</div>
 
+  <!-- Shows Section -->
+  <div class="container mx-auto px-4 mt-16">
+    <h2 class="section-title text-3xl font-bold text-center text-white mb-8">
+      मालिका (Shows)
+    </h2>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+      <!-- Show Cards -->
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="https://www.youtube.com/watch?v=xPV20XdWjrQ&amp;list=PLMHrU-jxz0lES9o1kYK9H7f66uUcsx89m&amp;index=4" target="_blank" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://s.itl.cat/pngfile/s/207-2071007_swarajya-rakshak-sambhaji-tv-show-swarajya-rakshak-sambhaji.jpg" alt="स्वराज्यरक्षक संभाजी" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">स्वराज्यरक्षक संभाजी</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="https://www.youtube.com/watch?v=eMBgubZWYh0&amp;list=PLPT_LBXZkCXDQGqj54Bp6xkA-tqTtWggS&amp;index=2" target="_blank" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://m.media-amazon.com/images/M/MV5BM2Q4OGRkZmQtOGNhNy00MzlkLThjMTYtMzVhZTYxNTU4ZGY3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="राजा शिवछत्रपती" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">राजा शिवछत्रपती</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="https://www.youtube.com/watch?v=zLB--Mpu-Po&amp;list=PLoYBnLBgd5ablDA2w5jTd9Da0N4_OryBq&amp;index=213" target="_blank" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://img.airtel.tv/unsafe/fit-in/1600x0/filters:format(webp)/https://xstreamcp-assets-msp.streamready.in/assets/SONYLIV_VOD/SERIES/6485cef982488153bfe4ba89/images/Tararani_12NOV_Landscape_Thumb.jpg?o=production" alt="स्वराज्य सौदामिनी ताराराणी" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">स्वराज्य सौदामिनी ताराराणी</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="movie-card bg-white rounded-xl overflow-hidden">
+        <a href="https://www.youtube.com/watch?v=Su-ZniKjUqA&amp;list=PLoYBnLBgd5ab21JrIpsunf4aBY-i2YnUv&amp;index=569" target="_blank" class="block">
+          <div class="relative overflow-hidden rounded-t-xl h-48">
+            <img src="https://pbs.twimg.com/profile_images/1309840125161922560/dK_cu5Xt_400x400.jpg" alt="स्वराज्यजननी जिजामाता" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-lg text-gray-800">स्वराज्यजननी जिजामाता</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-16 py-6 text-center text-white">
+    <div class="container mx-auto px-4">
+      <p class="mb-4">© 2024 स्वराज्य. सर्व हक्क राखीव.</p>
+      <div class="flex justify-center space-x-4">
+        <a href="#" class="social-icon">
+          <i class="fab fa-facebook text-xl"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="#" class="social-icon">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.movie-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'all 0.5s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
