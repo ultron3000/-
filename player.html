@@ -1,53 +1,614 @@
-<!-- player.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Player</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #ff2d55;
+      --secondary: #1a1a2e;
+      --accent: #00e5ff;
+    }
+    
     body {
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: white;
       margin: 0;
-      background-color: #000;
       overflow: hidden;
+      height: 100vh;
     }
-    .back-button {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.8);
-      color: #000;
-      padding: 8px 14px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-family: sans-serif;
+    
+    .player-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #000;
     }
+    
+    .video-wrapper {
+      position: relative;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .controls-overlay {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 30%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .player-container:hover .controls-overlay {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      align-items: center;
+    }
+    
+    .bottom-controls {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      width: 0%;
+      position: relative;
+    }
+    
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    .progress-container:hover .progress-bar::after {
+      opacity: 1;
+    }
+    
+    .main-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .left-controls, .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .control-btn {
+      background: transparent;
       border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .control-btn:hover {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+    
+    .play-pause {
+      font-size: 1.8rem;
+    }
+    
+    .time-display {
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+    
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      outline: none;
+      opacity: 0;
+      transition: opacity 0.2s, width 0.2s;
+    }
+    
+    .volume-container:hover .volume-slider {
+      opacity: 1;
+      width: 100px;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .fullscreen-btn {
+      margin-left: 10px;
+    }
+    
+    .error-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      max-width: 80%;
+    }
+    
+    .error-message h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    
+    .error-message a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+    
+    .error-message a:hover {
+      background: #e61e4d;
+    }
+    
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .settings-menu {
+      position: absolute;
+      bottom: 80px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 8px;
+      padding: 10px;
+      width: 200px;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s;
+    }
+    
+    .settings-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .settings-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .settings-item:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .quality-options {
+      display: none;
+      padding-left: 20px;
+    }
+    
+    .settings-item.active .quality-options {
+      display: block;
+    }
+    
+    .quality-option {
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    
+    .quality-option:hover {
+      color: var(--accent);
+    }
+    
+    .quality-option.selected {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .controls-overlay {
+        opacity: 1;
+        pointer-events: all;
+      }
+      
+      .volume-slider {
+        opacity: 1;
+        width: 60px;
+      }
+      
+      .settings-menu {
+        width: 180px;
+      }
     }
   </style>
 </head>
 <body>
-  <a class="back-button" href="index.html">← Back</a>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const movie = params.get('movie');
+  <div class="player-container">
+    <div class="video-wrapper">
+      <div class="loading-spinner"></div>
+      <!-- Video iframe will be inserted here by JavaScript -->
+    </div>
+    
+    <div class="controls-overlay">
+      <div class="top-controls">
+        <a href="index.html" class="control-btn back-btn">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="video-title text-lg font-medium truncate max-w-[70vw]">
+          <!-- Title will be inserted by JavaScript -->
+        </div>
+        <button class="control-btn settings-btn">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+      
+      <div class="bottom-controls">
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
+        
+        <div class="main-controls">
+          <div class="left-controls">
+            <button class="control-btn play-pause">
+              <i class="fas fa-pause"></i>
+            </button>
+            <div class="time-display">
+              <span class="current-time">00:00</span> / <span class="duration">00:00</span>
+            </div>
+          </div>
+          
+          <div class="right-controls">
+            <div class="volume-container">
+              <button class="control-btn volume-btn">
+                <i class="fas fa-volume-up"></i>
+              </button>
+              <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1">
+            </div>
+            <button class="control-btn fullscreen-btn">
+              <i class="fas fa-expand"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-menu">
+      <div class="settings-item quality-item">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Quality</span>
+        <i class="fas fa-chevron-right ml-auto"></i>
+        <div class="quality-options">
+          <div class="quality-option selected">Auto</div>
+          <div class="quality-option">1080p</div>
+          <div class="quality-option">720p</div>
+          <div class="quality-option">480p</div>
+        </div>
+      </div>
+      <div class="settings-item">
+        <i class="fas fa-closed-captioning"></i>
+        <span>Subtitles</span>
+      </div>
+      <div class="settings-item">
+        <i class="fas fa-language"></i>
+        <span>Audio Track</span>
+      </div>
+      <div class="settings-item">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Playback Speed</span>
+      </div>
+    </div>
+  </div>
 
-    if (movie) {
-      const iframe = document.createElement('iframe');
-      iframe.src = movie;
-      iframe.allowFullscreen = true;
-      document.body.appendChild(iframe);
-    } else {
-      document.body.innerHTML = "<h2 style='color: white; text-align: center; margin-top: 20vh;'>Movie link not found.</h2>";
-    }
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const movieUrl = params.get('movie');
+      const title = params.get('title') || 'Untitled Video';
+      
+      const playerContainer = document.querySelector('.player-container');
+      const videoWrapper = document.querySelector('.video-wrapper');
+      const loadingSpinner = document.querySelector('.loading-spinner');
+      const videoTitle = document.querySelector('.video-title');
+      const playPauseBtn = document.querySelector('.play-pause');
+      const currentTimeEl = document.querySelector('.current-time');
+      const durationEl = document.querySelector('.duration');
+      const progressBar = document.querySelector('.progress-bar');
+      const progressContainer = document.querySelector('.progress-container');
+      const volumeBtn = document.querySelector('.volume-btn');
+      const volumeSlider = document.querySelector('.volume-slider');
+      const fullscreenBtn = document.querySelector('.fullscreen-btn');
+      const backBtn = document.querySelector('.back-btn');
+      const settingsBtn = document.querySelector('.settings-btn');
+      const settingsMenu = document.querySelector('.settings-menu');
+      const qualityItem = document.querySelector('.quality-item');
+      const qualityOptions = document.querySelectorAll('.quality-option');
+      
+      let player;
+      let isPlaying = false;
+      let isMuted = false;
+      let isFullscreen = false;
+      let isSettingsOpen = false;
+      
+      // Set video title
+      videoTitle.textContent = title;
+      
+      if (movieUrl) {
+        // Create iframe for the video
+        const iframe = document.createElement('iframe');
+        iframe.src = movieUrl;
+        iframe.allowFullscreen = true;
+        iframe.allow = 'autoplay; fullscreen';
+        iframe.setAttribute('allowfullscreen', '');
+        
+        // Hide loading spinner when video is ready
+        iframe.onload = function() {
+          loadingSpinner.style.display = 'none';
+          
+          // For demo purposes, we'll simulate video controls
+          // In a real implementation, you would use the YouTube/Video.js API
+          simulateVideoControls();
+        };
+        
+        videoWrapper.appendChild(iframe);
+      } else {
+        showError("Movie link not found.");
+      }
+      
+      // Simulate video controls (for demo purposes)
+      function simulateVideoControls() {
+        // Set initial duration (simulated)
+        durationEl.textContent = '01:45:30';
+        
+        // Update progress bar and time (simulated)
+        let currentTime = 0;
+        const duration = 6330; // 1:45:30 in seconds
+        
+        const updateProgress = () => {
+          if (isPlaying) {
+            currentTime += 1;
+            if (currentTime > duration) currentTime = 0;
+            
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            
+            // Update time display
+            currentTimeEl.textContent = formatTime(currentTime);
+          }
+        };
+        
+        setInterval(updateProgress, 1000);
+      }
+      
+      // Format seconds to HH:MM:SS or MM:SS
+      function formatTime(seconds) {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
+        
+        if (hrs > 0) {
+          return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        } else {
+          return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+      }
+      
+      // Show error message
+      function showError(message) {
+        loadingSpinner.style.display = 'none';
+        
+        const errorHtml = `
+          <div class="error-message">
+            <h2>${message}</h2>
+            <a href="index.html">Go Back</a>
+          </div>
+        `;
+        
+        playerContainer.innerHTML += errorHtml;
+      }
+      
+      // Event listeners
+      playPauseBtn.addEventListener('click', function() {
+        isPlaying = !isPlaying;
+        playPauseBtn.innerHTML = isPlaying 
+          ? '<i class="fas fa-pause"></i>' 
+          : '<i class="fas fa-play"></i>';
+      });
+      
+      progressContainer.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const pos = (e.pageX - rect.left) / this.offsetWidth;
+        progressBar.style.width = `${pos * 100}%`;
+        
+        // In a real implementation, you would seek the video to this position
+        const duration = 6330; // Simulated duration
+        const currentTime = duration * pos;
+        currentTimeEl.textContent = formatTime(currentTime);
+      });
+      
+      volumeBtn.addEventListener('click', function() {
+        isMuted = !isMuted;
+        volumeBtn.innerHTML = isMuted 
+          ? '<i class="fas fa-volume-mute"></i>' 
+          : '<i class="fas fa-volume-up"></i>';
+        
+        // In a real implementation, you would mute/unmute the video
+        volumeSlider.value = isMuted ? 0 : 1;
+      });
+      
+      volumeSlider.addEventListener('input', function() {
+        const volume = this.value;
+        isMuted = volume <= 0;
+        volumeBtn.innerHTML = isMuted 
+          ? '<i class="fas fa-volume-mute"></i>' 
+          : '<i class="fas fa-volume-up"></i>';
+        
+        // In a real implementation, you would set the video volume
+      });
+      
+      fullscreenBtn.addEventListener('click', function() {
+        isFullscreen = !isFullscreen;
+        
+        if (isFullscreen) {
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+          } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+          } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+          }
+          
+          fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+          
+          fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+        }
+      });
+      
+      settingsBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        isSettingsOpen = !isSettingsOpen;
+        settingsMenu.classList.toggle('active', isSettingsOpen);
+      });
+      
+      qualityItem.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+      
+      qualityOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.stopPropagation();
+          
+          qualityOptions.forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+          
+          // In a real implementation, you would change the video quality
+        });
+      });
+      
+      // Close settings when clicking outside
+      document.addEventListener('click', function() {
+        if (isSettingsOpen) {
+          isSettingsOpen = false;
+          settingsMenu.classList.remove('active');
+        }
+      });
+      
+      // Keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        if (e.code === 'Space') {
+          e.preventDefault();
+          playPauseBtn.click();
+        }
+        
+        if (e.code === 'ArrowRight') {
+          // Seek forward 5 seconds
+        }
+        
+        if (e.code === 'ArrowLeft') {
+          // Seek backward 5 seconds
+        }
+        
+        if (e.code === 'KeyM') {
+          volumeBtn.click();
+        }
+        
+        if (e.code === 'KeyF') {
+          fullscreenBtn.click();
+        }
+      });
+    });
   </script>
 </body>
 </html>
