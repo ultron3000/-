@@ -315,13 +315,55 @@
         font-size: 16px;
       }
     }
+    
+    /* Play button overlay */
+    .play-button-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(234, 88, 12, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: all 0.3s ease;
+      opacity: 0.9;
+    }
+    
+    .play-button-overlay i {
+      color: white;
+      font-size: 24px;
+      margin-left: 4px;
+    }
+    
+    .movie-card:hover .play-button-overlay {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 1;
+    }
+    
+    /* Loading indicator */
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
   </style>
 </head>
 <body class="pb-16">
   <!-- Video Player Modal -->
   <div class="video-modal" id="videoModal">
     <div class="video-container">
-      <div class="video-wrapper" id="videoWrapper"></div>
+      <div class="video-wrapper" id="videoWrapper">
+        <div class="loading-indicator hidden">
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
       <button class="close-btn" id="closeModal">
         <i class="fas fa-times"></i>
       </button>
@@ -381,6 +423,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/14PPQfQJfspcFMmYCPfBwTcD6WGuxAt0x/preview" data-title="फर्जंद">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://static.digit.in/OTT/v2/images/farzand-70297jpg" alt="फर्जंद" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">फर्जंद</div>
         </a>
@@ -390,6 +435,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1fIxfr-OWT7Hd5czMlTZ5oqswX_IUFKxf/preview" data-title="फत्तेशिकस्त">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://upload.wikimedia.org/wikipedia/en/8/81/Fatteshikast.jpg" alt="फत्तेशिकस्त" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">फत्तेशिकस्त</div>
         </a>
@@ -399,6 +447,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1cTEVFdmlU17pFMVILTBh92OLdyMEJ-dD/preview" data-title="पावनखिंड">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://m.media-amazon.com/images/M/MV5BOTMyYTEyYWMtNjI2Ny00MGZkLThjZTUtY2VhZTc5OTc5NmY0XkEyXkFqcGc@._V1_.jpg" alt="पावनखिंड" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">पावनखिंड</div>
         </a>
@@ -408,6 +459,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1BVpWybbG4QgQd8UYBFEPyVmdN3-Rs05S/preview" data-title="शेर शिवराज">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://i.pinimg.com/736x/de/aa/b4/deaab43ec3cafec25c5b36a3650a7989.jpg" alt="शेर शिवराज" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">शेर शिवराज</div>
         </a>
@@ -417,6 +471,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1VOyEOjnTEtn8jcZs_XTwBDwGtCgFVLFx/preview" data-title="सुभेदार">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://media-cache.cinematerial.com/p/500x/cu5tefq3/subhedar-indian-movie-poster.jpg?v=1707902225" alt="सुभेदार" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">सुभेदार</div>
         </a>
@@ -426,6 +483,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1-Tt6UuGDgkev-bTQ-V2xTzq4pytP_Bq5/preview" data-title="सरसेनापती हंबीरराव">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://marathimovieworld.com/images/sarsenapati-hambirrao-movie-posters-pravin-tarde.jpg" alt="सरसेनापती हंबीरराव" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">सरसेनापती हंबीरराव</div>
         </a>
@@ -435,6 +495,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1X-z1n7TaLfeHUS54URe6cYmR9uFb6KT1/preview" data-title="शिवप्रताप गरुडझेप">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://www.loksatta.com/wp-content/uploads/2022/09/Shivpratap-Garudjhep-Cast-2.jpg?w=350" alt="शिवप्रताप गरुडझेप" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">शिवप्रताप गरुडझेप</div>
         </a>
@@ -444,6 +507,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1kcjXftfjQzzfmBhKXXNv0ZqeN9CB8zsR/preview" data-title="हिरकणी">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://m.media-amazon.com/images/M/MV5BMDRlZGNlY2MtMzZmZi00Yjg1LTliNDgtZjZhZmJmZGQxOGM5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="हिरकणी" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">हिरकणी</div>
         </a>
@@ -453,6 +519,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1qnuEq-66vaxVPzfsHAL2E346kQVjvB45/preview" data-title="शिवरायांचा छावा">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://m.media-amazon.com/images/M/MV5BMjhkMTI5MTktMjc0MC00N2I3LWFlMGMtOTY0YmNmYzJlNTM3XkEyXkFqcGc@._V1_.jpg" alt="शिवरायांचा छावा" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">शिवरायांचा छावा</div>
         </a>
@@ -462,6 +531,9 @@
         <a href="#" class="block h-full" data-video="https://drive.google.com/file/d/1y8foBArRlApJl7mzHGbWdWa0izC-GMP7/preview" data-title="धर्मरक्षक महावीर छत्रपती संभाजी महाराज">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://m.media-amazon.com/images/M/MV5BOTA3ZjJjYjMtNWY1Ni00NWUzLTkwZTEtZTViMGVhYzMwNDE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="धर्मरक्षक महावीर छत्रपती संभाजी महाराज" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">धर्मरक्षक महावीर छत्रपती संभाजी महाराज</div>
         </a>
@@ -471,6 +543,9 @@
         <a href="#" class="block h-full" data-video="https://macdn.hakunaymatata.com/convert-h264/33044fe71787f8004782f91b4232d66c.mp4?Expires=1749600521&Signature=HWKOYp5r7cLile5kMHHf62QTU-UyUbLqptBk3QQnrxIR0qKaPQIX1ZQS7JnQ0-A47Ax2-7YGyfaALw5rOB85Oib1XgR~BBsp02Bg1EyeWCCVV~fDCLVXZltX9VtKUAJ9p2BfQXeyatPwiodDUnzCh4EbVJuxzScWaxXFfHG4A5ZzW~i~rCW5IkSruZcJAREieKoKM9KmHTfiFnx2YVRNFz-ZpYhUT4DWU3MP6phAP3hCCaROu2oktTLcDq60AjTTIYEbJ2x~6FqeJNGTBA-zhUKpOm4hI9oPqGzKuBt7UG5lZUfv41ZtCXWJGYtySHaw5agAq~1KZkj7qQlgQ4PHxA__&Key-Pair-Id=KMHN1LQ1HEUPL" data-title="छावा">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://images.tv9hindi.com/wp-content/uploads/2024/08/chhaava-poster.jpg" alt="छावा" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">छावा</div>
         </a>
@@ -490,36 +565,48 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <!-- Show Cards -->
       <div class="movie-card">
-        <a href="https://www.youtube.com/watch?v=xPV20XdWjrQ&amp;list=PLMHrU-jxz0lES9o1kYK9H7f66uUcsx89m&amp;index=4" target="_blank" class="block h-full">
+        <a href="#" class="block h-full" data-video="https://www.youtube.com/embed/xPV20XdWjrQ?autoplay=1" data-title="स्वराज्यरक्षक संभाजी">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://s.itl.cat/pngfile/s/207-2071007_swarajya-rakshak-sambhaji-tv-show-swarajya-rakshak-sambhaji.jpg" alt="स्वराज्यरक्षक संभाजी" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">स्वराज्यरक्षक संभाजी</div>
         </a>
       </div>
       
       <div class="movie-card">
-        <a href="https://www.youtube.com/watch?v=eMBgubZWYh0&amp;list=PLPT_LBXZkCXDQGqj54Bp6xkA-tqTtWggS&amp;index=2" target="_blank" class="block h-full">
+        <a href="#" class="block h-full" data-video="https://www.youtube.com/embed/eMBgubZWYh0?autoplay=1" data-title="राजा शिवछत्रपती">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://m.media-amazon.com/images/M/MV5BM2Q4OGRkZmQtOGNhNy00MzlkLThjMTYtMzVhZTYxNTU4ZGY3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="राजा शिवछत्रपती" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">राजा शिवछत्रपती</div>
         </a>
       </div>
       
       <div class="movie-card">
-        <a href="https://www.youtube.com/watch?v=zLB--Mpu-Po&amp;list=PLoYBnLBgd5ablDA2w5jTd9Da0N4_OryBq&amp;index=213" target="_blank" class="block h-full">
+        <a href="#" class="block h-full" data-video="https://www.youtube.com/embed/zLB--Mpu-Po?autoplay=1" data-title="स्वराज्य सौदामिनी ताराराणी">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://img.airtel.tv/unsafe/fit-in/1600x0/filters:format(webp)/https://xstreamcp-assets-msp.streamready.in/assets/SONYLIV_VOD/SERIES/6485cef982488153bfe4ba89/images/Tararani_12NOV_Landscape_Thumb.jpg?o=production" alt="स्वराज्य सौदामिनी ताराराणी" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">स्वराज्य सौदामिनी ताराराणी</div>
         </a>
       </div>
       
       <div class="movie-card">
-        <a href="https://www.youtube.com/watch?v=Su-ZniKjUqA&amp;list=PLoYBnLBgd5ab21JrIpsunf4aBY-i2YnUv&amp;index=569" target="_blank" class="block h-full">
+        <a href="#" class="block h-full" data-video="https://www.youtube.com/embed/Su-ZniKjUqA?autoplay=1" data-title="स्वराज्यजननी जिजामाता">
           <div class="relative overflow-hidden h-64 w-full">
             <img src="https://pbs.twimg.com/profile_images/1309840125161922560/dK_cu5Xt_400x400.jpg" alt="स्वराज्यजननी जिजामाता" class="w-full h-full object-cover">
+            <div class="play-button-overlay">
+              <i class="fas fa-play"></i>
+            </div>
           </div>
           <div class="movie-title">स्वराज्यजननी जिजामाता</div>
         </a>
@@ -614,6 +701,7 @@
       const videoWrapper = document.getElementById('videoWrapper');
       const videoTitle = document.getElementById('videoTitle');
       const closeModal = document.getElementById('closeModal');
+      const loadingIndicator = document.querySelector('.loading-indicator');
       
       // Handle video links
       document.querySelectorAll('[data-video]').forEach(link => {
@@ -623,14 +711,25 @@
           const videoUrl = this.getAttribute('data-video');
           const title = this.getAttribute('data-title');
           
+          // Show loading indicator
+          loadingIndicator.classList.remove('hidden');
+          
           // Clear previous content
           videoWrapper.innerHTML = '';
           
           // Set title
           videoTitle.textContent = title;
           
-          // Check if it's a Google Drive link or MP4
-          if (videoUrl.includes('drive.google.com')) {
+          // Create iframe or video element based on URL
+          if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+            // YouTube embed
+            const iframe = document.createElement('iframe');
+            iframe.src = videoUrl;
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('frameborder', '0');
+            videoWrapper.appendChild(iframe);
+          } else if (videoUrl.includes('drive.google.com')) {
             // Google Drive embed
             const iframe = document.createElement('iframe');
             iframe.src = videoUrl;
@@ -652,6 +751,14 @@
           // Show modal
           videoModal.classList.add('active');
           document.body.style.overflow = 'hidden';
+          
+          // Hide loading indicator when content is loaded
+          const mediaElement = videoWrapper.querySelector('iframe, video');
+          if (mediaElement) {
+            mediaElement.onload = mediaElement.oncanplay = function() {
+              loadingIndicator.classList.add('hidden');
+            };
+          }
         });
       });
       
@@ -664,6 +771,12 @@
         const video = videoWrapper.querySelector('video');
         if (video) {
           video.pause();
+        }
+        
+        // Remove iframe to stop playback
+        const iframe = videoWrapper.querySelector('iframe');
+        if (iframe) {
+          iframe.src = '';
         }
       });
       
@@ -678,6 +791,12 @@
           if (video) {
             video.pause();
           }
+          
+          // Remove iframe to stop playback
+          const iframe = videoWrapper.querySelector('iframe');
+          if (iframe) {
+            iframe.src = '';
+          }
         }
       });
       
@@ -691,6 +810,12 @@
           const video = videoWrapper.querySelector('video');
           if (video) {
             video.pause();
+          }
+          
+          // Remove iframe to stop playback
+          const iframe = videoWrapper.querySelector('iframe');
+          if (iframe) {
+            iframe.src = '';
           }
         }
       });
